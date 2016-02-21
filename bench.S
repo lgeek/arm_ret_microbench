@@ -116,7 +116,7 @@ b_bx_r1: PUSH {LR}
          IT EQ
          POPEQ {PC}
          ADR LR, d6+1
-         BL c6
+         B.W c6
      d6: B r6
      c6: MOV R1, LR
          BX R1
@@ -149,7 +149,7 @@ b_ldr_pc: PUSH {LR}
           IT EQ
           POPEQ {PC}
           ADR LR, d8+1
-          BL c8
+          B.W c8
       d8: B r8
       c8: LDR R1, =ret_addr
           STR LR, [R1]
