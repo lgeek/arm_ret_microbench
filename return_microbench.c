@@ -49,6 +49,7 @@ extern void bl_bx_r1(uint32_t iter);
 extern void b_bx_r1(uint32_t iter);
 extern void bl_ldr_pc(uint32_t iter);
 extern void b_ldr_pc(uint32_t iter);
+extern void b_ldr_pc2(uint32_t iter);
 
 void run_timed(ubench bench, uint32_t iter) {
   struct timespec start, end;
@@ -77,6 +78,7 @@ int main(int argc, char **argv) {
   print_timed_run(b_bx_r1);
   print_timed_run(bl_ldr_pc);
   print_timed_run(b_ldr_pc);
+  print_timed_run(b_ldr_pc2);
 
   return 0;
 }

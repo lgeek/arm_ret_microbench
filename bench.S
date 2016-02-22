@@ -30,6 +30,7 @@
 
 .syntax unified
 
+/* Single return address */
 .align 5
 .thumb_func
 .global bl_bx_lr
@@ -152,6 +153,26 @@ b_ldr_pc: PUSH {LR}
           B.W c8
       d8: B r8
       c8: LDR R1, =ret_addr
+          STR LR, [R1]
+          LDR PC, [R1]
+.endfunc
+
+/* Two return addresses */
+.align 5
+.thumb_func
+.global b_ldr_pc2
+.func b_ldr_pc2
+.type b_ldr_pc2, %function
+b_ldr_pc2: PUSH {LR}
+      r9: SUBS R0, #1
+          IT EQ
+          POPEQ {PC}
+          ADR LR, d9+1
+          B.W c9
+      d9: ADR LR, e9+1
+          B.W c9
+      e9: B r9
+      c9: LDR R1, =ret_addr
           STR LR, [R1]
           LDR PC, [R1]
 .endfunc
