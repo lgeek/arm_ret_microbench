@@ -77,6 +77,8 @@ int main(int argc, char **argv) {
 
   ret = mprotect((void *)((uint32_t)&ret_addr & ~0xFFF), 0x1000,
                  PROT_READ|PROT_WRITE|PROT_EXEC);
+  assert(ret == 0);
+
   print_timed_run(bl_bx_lr);
   print_timed_run(b_bx_lr);
   print_timed_run(bl_pop_pc);
