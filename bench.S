@@ -123,6 +123,9 @@ b_bx_r1: PUSH {LR}
          BX R1
 .endfunc
 
+.global ret_addr
+ret_addr: .word 0
+
 .align 5
 .thumb_func
 .global bl_ldr_pc
@@ -137,7 +140,7 @@ bl_ldr_pc: PUSH {LR}
        d7: B r7
        c7: LDR R1, =ret_addr
            STR LR, [R1]
-           LDR PC, [R1]
+           LDR PC, ret_addr
 .endfunc
 
 .align 5
@@ -154,7 +157,7 @@ b_ldr_pc: PUSH {LR}
       d8: B r8
       c8: LDR R1, =ret_addr
           STR LR, [R1]
-          LDR PC, [R1]
+          LDR PC, ret_addr
 .endfunc
 
 /* Two return addresses */
@@ -174,8 +177,7 @@ b_ldr_pc2: PUSH {LR}
       e9: B r9
       c9: LDR R1, =ret_addr
           STR LR, [R1]
-          LDR PC, [R1]
+          LDR PC, ret_addr
 .endfunc
 
-.data
-ret_addr: .word 0
+//.data

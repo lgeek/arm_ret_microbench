@@ -33,6 +33,7 @@
 #include <stdint.h>
 #include <time.h>
 #include <assert.h>
+#include <sys/mman.h>
 
 #define ITER 300000000
 #define print_timed_run(bench) \
@@ -50,6 +51,8 @@ extern void b_bx_r1(uint32_t iter);
 extern void bl_ldr_pc(uint32_t iter);
 extern void b_ldr_pc(uint32_t iter);
 extern void b_ldr_pc2(uint32_t iter);
+
+extern uint32_t ret_addr;
 
 void run_timed(ubench bench, uint32_t iter) {
   struct timespec start, end;
@@ -70,6 +73,10 @@ void run_timed(ubench bench, uint32_t iter) {
 }
 
 int main(int argc, char **argv) {
+  int ret;
+
+  ret = mprotect((void *)((uint32_t)&ret_addr & ~0xFFF), 0x1000,
+                 PROT_READ|PROT_WRITE|PROT_EXEC);
   print_timed_run(bl_bx_lr);
   print_timed_run(b_bx_lr);
   print_timed_run(bl_pop_pc);
