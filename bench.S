@@ -123,6 +123,7 @@ b_bx_r1: PUSH {LR}
          BX R1
 .endfunc
 
+.align
 .global ret_addr
 ret_addr: .word 0
 
